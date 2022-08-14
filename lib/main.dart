@@ -11,11 +11,11 @@ class MyHttpOverrides extends HttpOverrides{
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const TictravApp());
+  runApp(const MyApp());
 }
 
-class TictravApp extends StatelessWidget {
-  const TictravApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -68,31 +68,120 @@ class _MyHomePageState extends State<MyHomePage> {
         //   elevation: 0,
         //   title: Text(widget.title),
         // ),
-        body: SafeArea(
+        body: Container(
           child: PageView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
             children: <Widget>[
-              Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+              Stack(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      padding: const EdgeInsets.symmetric(vertical:60.0, horizontal: 20.0),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          const Text(
+                              'Tictrav',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 70.0
+                              )
+                          ),
+                          RichText(
+                            text: const TextSpan(
+                              text: 'Tictrav',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white,
+                                  fontSize: 30.0
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(text: ' travel', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                TextSpan(text: ' world!'),
+                              ],
+                            ),
+                          )
+                        ],
+                      )
                   ),
-                  child: RichText(
-                    text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: const <TextSpan>[
-                        TextSpan(text: 'Tictrav', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                        // TextSpan(text: ' world!'),
+                  Positioned(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height/3,
+                    bottom: 10,
+                    child: PageView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            children: const [
+                              Image(
+                                image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                              ),
+                              Text('Tempat wisata, Kota')
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            children: const [
+                              Image(
+                                image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                              ),
+                              Text('Tempat wisata, Kota')
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )
+                ],
               ),
-              Container(
-                  child:Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg')
+              Column(
+                  children:[
+                    RichText(
+                      text: const TextSpan(
+                        text: 'Popular Tourism Sites',
+                        style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 30)
+                      ),
+                    ),
+
+                    SizedBox(
+                        height: 400.0,
+                        child:PageView(
+                          // padding: EdgeInsets.all(20.0),
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            Container(
+                              width:MediaQuery.of(context).size.width,
+                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                            ),
+                            Container(
+                              width:MediaQuery.of(context).size.width,
+                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                            ),
+                            Container(
+                              width:MediaQuery.of(context).size.width,
+                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                            ),
+                            Container(
+                              width:MediaQuery.of(context).size.width,
+                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                            ),
+                          ],
+                        )
+                    )
+                  ]
               )
             ],
           )
