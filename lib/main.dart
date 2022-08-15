@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -68,11 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
         //   elevation: 0,
         //   title: Text(widget.title),
         // ),
-        body: Container(
+        body: SafeArea(
           child: PageView(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            children: <Widget>[
+            children: [
               Stack(
                 children: [
                   Container(
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(text: ' travel', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                                TextSpan(text: ' world!'),
+                                TextSpan(text: ' the world!'),
                               ],
                             ),
                           )
@@ -152,31 +153,180 @@ class _MyHomePageState extends State<MyHomePage> {
                     RichText(
                       text: const TextSpan(
                         text: 'Popular Tourism Sites',
-                        style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 30)
+                        style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)
                       ),
                     ),
-
                     SizedBox(
                         height: 400.0,
-                        child:PageView(
+                        child: PageView(
                           // padding: EdgeInsets.all(20.0),
                           scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            Container(
-                              width:MediaQuery.of(context).size.width,
-                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.black45,
+                                              blurRadius: 4,
+                                              offset: Offset(4, 8), // Shadow position
+                                            ),
+                                          ]
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(12),
+                                            child: CachedNetworkImage(
+                                              placeholder: (context, url) => const Center(
+                                                child: SizedBox(
+                                                  height: 100.0,
+                                                  width: 100.0,
+                                                  child: CircularProgressIndicator(strokeWidth: 3.0,),
+                                                ),
+                                              ),
+                                              imageUrl: 'https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg',
+                                            ),
+                                          ),
+                                          Positioned(
+                                              bottom:0,
+                                              left: 0,
+                                              right: 0,
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0)
+                                                ),
+                                                margin: EdgeInsets.all(0),
+                                                child: Column(
+                                                  children: [
+                                                    const Padding(
+                                                      padding: EdgeInsets.all(10),
+                                                      child: Text(
+                                                        'Pantai Kuta, Bali',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight.normal,
+                                                            fontSize: 25
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.all(10),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: const [
+                                                          Text(
+                                                            'Category',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.normal,
+                                                                fontSize: 20
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'Harga',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.normal,
+                                                                fontSize: 20
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                          )
+                                        ],
+                                      )
+                                  ),
+                                ],
+                              ),
                             ),
-                            Container(
-                              width:MediaQuery.of(context).size.width,
-                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
-                            ),
-                            Container(
-                              width:MediaQuery.of(context).size.width,
-                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
-                            ),
-                            Container(
-                              width:MediaQuery.of(context).size.width,
-                              child: Image.network('https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg'),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.black45,
+                                              blurRadius: 4,
+                                              offset: Offset(4, 8), // Shadow position
+                                            ),
+                                          ]
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(12),
+                                            child: CachedNetworkImage(
+                                              placeholder: (context, url) => const Center(
+                                                child: SizedBox(
+                                                  height: 100.0,
+                                                  width: 100.0,
+                                                  child: CircularProgressIndicator(strokeWidth: 3.0,),
+                                                ),
+                                              ),
+                                              imageUrl: 'https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg',
+                                            ),
+                                          ),
+                                          Positioned(
+                                              bottom:0,
+                                              left: 0,
+                                              right: 0,
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10.0)
+                                                ),
+                                                margin: EdgeInsets.all(0),
+                                                child: Column(
+                                                  children: [
+                                                    const Padding(
+                                                      padding: EdgeInsets.all(10),
+                                                      child: Text(
+                                                        'Pantai Kuta, Bali',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight.normal,
+                                                            fontSize: 25
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.all(10),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: const [
+                                                          Text(
+                                                            'Category',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.normal,
+                                                                fontSize: 20
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'Harga',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.normal,
+                                                                fontSize: 20
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                          )
+                                        ],
+                                      )
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         )
