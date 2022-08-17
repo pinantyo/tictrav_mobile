@@ -12,11 +12,14 @@ class TourismSite extends StatefulWidget{
 }
 
 class _TourismSiteState extends State<TourismSite>{
+  double rating = 2.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation:0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: (){
@@ -28,7 +31,6 @@ class _TourismSiteState extends State<TourismSite>{
             size: 30.0,
           ),
         ),
-        title: const Text('Pantai Kuta, Bali',style: TextStyle(color: Colors.black),),
       ),
       body: Stack(
         children: [
@@ -53,12 +55,71 @@ class _TourismSiteState extends State<TourismSite>{
               ),
               margin: const EdgeInsets.all(0),
               child: Column(
-                children: const [
-                  Text("Lorem ipsum"),
-                  Text("Lorem ipsum"),
-                  Text("Lorem ipsum"),
-                  Text("Lorem ipsum"),
-                  Text("Lorem ipsum"),
+                children: [
+                  Padding(
+                      padding:const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "Pantai Kuta, Bali",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          Text(
+                            "Rp. 20.000,00",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          )
+                        ],
+                      )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      children: [
+                        Rating(
+                          rating: rating,
+                          onRatingChanged: (rating) => setState(() => this.rating = rating),
+                        ),
+                        Text('${rating}',style: const TextStyle(color: Colors.black, fontSize: 20),)
+                      ],
+                    )
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(30.0),
+                    child: Text(
+                      'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: const [
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: ButtonBar(
+                      children: [
+                        ElevatedButton(
+                            onPressed: (){return;},
+                            child: const Text(
+                              'Order',
+                              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                            ))
+
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -67,5 +128,46 @@ class _TourismSiteState extends State<TourismSite>{
       )
     );
   }
-  
+}
+
+typedef RatingHandlerCallback = void Function(double rating);
+
+class Rating extends StatelessWidget {
+  final int count;
+  final double rating;
+  final RatingHandlerCallback onRatingChanged;
+
+  const Rating({Key? key, this.count = 5, this.rating = 0, required this.onRatingChanged});
+
+  Widget buildStar(BuildContext context, int index) {
+    Icon icon;
+    if (index >= rating) {
+      icon = const Icon(
+          Icons.star_border,
+          color: Colors.black
+      );
+    } else if (index > rating - 1 && index < rating) {
+      icon = const Icon(
+        Icons.star_half,
+        color: Colors.yellow,
+      );
+    } else {
+      icon = const Icon(
+        Icons.star,
+        color: Colors.yellow,
+      );
+    }
+    return InkResponse(
+      onTap: onRatingChanged == null ? null : () =>
+          onRatingChanged(index + 1.0),
+      child: icon,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        children: List.generate(count, (index) => buildStar(context, index))
+    );
+  }
 }

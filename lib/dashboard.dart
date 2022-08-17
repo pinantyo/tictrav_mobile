@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tictrav_mobile/tourism_site.dart';
+import 'package:tictrav_mobile/tourism_cities.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -22,8 +23,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-
+  static const _imageURLTesting = 'https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg';
+  bool _visitedAny = false;
   // void _incrementCounter() {
   //   setState(() {
   //     // This call to setState tells the Flutter framework that something has
@@ -85,121 +86,170 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: SafeArea(
-          child: PageView(
+          child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            children: [
-              Column(
+            child: Column(
                   children:[
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-                        child: Text(
-                            'Popular Tourism Sites',
-                            style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)
-                        ),
-                      )
-                    ),
-                    SizedBox(
-                        height: 400.0,
-                        child: PageView(
-                          // padding: EdgeInsets.all(20.0),
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: InkWell(
-                                onTap: (){Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => TourismSite(title: widget.title,)),
-                                );},
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(12),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.black45,
-                                                blurRadius: 4,
-                                                offset: Offset(4, 8), // Shadow position
-                                              ),
-                                            ]
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(12),
-                                              child: CachedNetworkImage(
-                                                placeholder: (context, url) => SizedBox(
-                                                  // height: 100.0,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  // child: CircularProgressIndicator(strokeWidth: 3.0,),
-                                                ),
-                                                imageUrl: 'https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg',
-                                              ),
+
+                    if(_visitedAny)...[
+                      const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                            child: Text(
+                                'Popular Tourism Sites',
+                                style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)
+                            ),
+                          )
+                      ),
+
+                      SizedBox(
+                        height: 250.0,
+                        child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            children: List<Widget>.generate(10, (index){
+                              return Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          offset: Offset(10.0, 10.0,),
+                                          blurRadius: 15.0,
+                                        ), //BoxShadow
+                                      ]
+                                  ),
+                                  child: InkWell(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => TourismSite(title: widget.title,))
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(12),
+                                          child: CachedNetworkImage(
+                                            placeholder: (context, url) => SizedBox(
+                                              width: MediaQuery.of(context).size.width,
                                             ),
-                                            Positioned(
-                                                bottom:0,
-                                                left: 0,
-                                                right: 0,
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(10.0)
+                                            imageUrl: _imageURLTesting,
+                                          ),
+                                        ),
+                                        Positioned(
+                                            bottom:0,
+                                            left: 0,
+                                            right: 0,
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(12.0)
+                                              ),
+                                              margin: const EdgeInsets.all(0),
+                                              child: Column(
+                                                children: [
+                                                  const Padding(
+                                                    padding: EdgeInsets.all(10),
+                                                    child: Text(
+                                                      'Pantai Kuta, Bali',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.normal,
+                                                          fontSize: 24
+                                                      ),
+                                                    ),
                                                   ),
-                                                  margin: const EdgeInsets.all(0),
-                                                  child: Column(
-                                                    children: [
-                                                      const Padding(
-                                                        padding: EdgeInsets.all(10),
-                                                        child: Text(
-                                                          'Pantai Kuta, Bali',
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(10),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: const [
+                                                        Text(
+                                                          'Category',
                                                           style: TextStyle(
                                                               fontWeight: FontWeight.normal,
-                                                              fontSize: 25
+                                                              fontSize: 20
                                                           ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding: const EdgeInsets.all(10),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: const [
-                                                            Text(
-                                                              'Category',
-                                                              style: TextStyle(
-                                                                  fontWeight: FontWeight.normal,
-                                                                  fontSize: 20
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Harga',
-                                                              style: TextStyle(
-                                                                  fontWeight: FontWeight.normal,
-                                                                  fontSize: 20
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        Text(
+                                                          'Harga',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.normal,
+                                                              fontSize: 20
+                                                          ),
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             )
-                                          ],
                                         )
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  )
+                              );
+                            })
+                        ),
+                      ),
+                    ] else... [
+                      const Text('You have not visited any place yet')
+                    ],
+
+                    const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                          child: Text(
+                              'Cities',
+                              style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)
+                          ),
+                        )
+                    ),
+
+                    SizedBox(
+                      height: 250.0,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: List<Widget>.generate(10, (index){
+                          return Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const TourismCitiesPage(city: 'Bali',))
+                                );},
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) => const CircularProgressIndicator(),
+                                      imageUrl: _imageURLTesting,
+                                    ),
+                                  ),
+                                  const Positioned(
+                                    left: 10,
+                                    bottom: 10,
+                                    child: Text(
+                                      'Jakarta',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold
+                                      ),),
+                                  )
+                                ],
                               ),
                             ),
-                          ],
-                        )
+                          );
+                        })
+                      ),
                     )
                   ]
               )
-            ],
           )
       ),
     );
