@@ -12,9 +12,12 @@ class _ProfilePageState extends State<ProfilePage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
-          onPressed: (){return;},
+          onPressed: (){Navigator.pop(context);},
           icon: const Icon(
             Icons.arrow_back_ios,
             size: 30.0,
@@ -29,14 +32,19 @@ class _ProfilePageState extends State<ProfilePage>{
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: const [
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.grey,
-            ),
-
-          ],
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(20.0),
+          color: Colors.white,
+          child:Column(
+            children: [
+              const CircleAvatar(
+                radius: 80,
+                backgroundColor: Colors.grey,
+              ),
+            ],
+          ),
         ),
       ),
     );
