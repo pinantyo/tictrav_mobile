@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import 'package:tictrav_mobile/review_detail.dart';
+
 
 class TourismSite extends StatefulWidget{
   const TourismSite({Key? key, required this.title, required this.testImage}) : super(key: key);
@@ -14,6 +16,7 @@ class TourismSite extends StatefulWidget{
 
 class _TourismSiteState extends State<TourismSite>{
   double rating = 2.0;
+  double averageRating = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +85,10 @@ class _TourismSiteState extends State<TourismSite>{
                         Row(
                           children: [
                             Rating(
-                              rating: rating,
-                              onRatingChanged: (rating) => setState(() => this.rating = rating),
+                              rating: averageRating,
+                              onRatingChanged: (rating) => setState(() => averageRating = rating),
                             ),
-                            Text('${rating}',style: const TextStyle(color: Colors.black, fontSize: 20),)
+                            Text('$averageRating',style: const TextStyle(color: Colors.black, fontSize: 20),)
                           ],
                         ),
                         const Text(
@@ -106,6 +109,66 @@ class _TourismSiteState extends State<TourismSite>{
                           ],
                         ),
 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Ratings and reviews',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            InkWell(
+                              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ReviewDetail(tourismSite:'Pantai Kuta, Bali')));},
+                              child: Column(
+                                children: const [
+                                  Text('.'),
+                                  Text('.'),
+                                  Text('.')
+                                ],
+                              ),
+                            )
+
+                          ],
+                        ),
+
+                        SizedBox(
+                          height: 350.0,
+                          child: Column(
+                            children: List<Widget>.generate(2, (index){
+                              return Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0)
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.black,
+                                              radius: 20.0,
+                                            ),
+                                            Text('User')
+                                          ],
+                                        ),
+                                        Rating(
+                                          rating: rating,
+                                          onRatingChanged: (rating){return;},
+                                        ),
+                                        const Text('Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum')
+                                      ],
+                                    ),
+                                  )
+                              );
+                            }),
+                          ),
+                        ),
+
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -117,6 +180,7 @@ class _TourismSiteState extends State<TourismSite>{
                             textAlign: TextAlign.justify,
                           ),
                         ),
+
                         SizedBox(
                           height: 250.0,
                           child: ListView(
@@ -126,19 +190,19 @@ class _TourismSiteState extends State<TourismSite>{
                                 return Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        // boxShadow: const [
-                                        //   BoxShadow(
-                                        //     color: Colors.black26,
-                                        //     offset: Offset(10.0, 10.0,),
-                                        //     blurRadius: 15.0,
-                                        //   ),
-                                        //   BoxShadow(
-                                        //     color: Colors.black26,
-                                        //     offset: Offset(0.0, 0.0,),
-                                        //     blurRadius: 0.0,
-                                        //   ),//BoxShadow
-                                        // ]
+                                      borderRadius: BorderRadius.circular(12),
+                                      // boxShadow: const [
+                                      //   BoxShadow(
+                                      //     color: Colors.black26,
+                                      //     offset: Offset(10.0, 10.0,),
+                                      //     blurRadius: 15.0,
+                                      //   ),
+                                      //   BoxShadow(
+                                      //     color: Colors.black26,
+                                      //     offset: Offset(0.0, 0.0,),
+                                      //     blurRadius: 0.0,
+                                      //   ),//BoxShadow
+                                      // ]
                                     ),
                                     child: InkWell(
                                       onTap: () => Navigator.push(
@@ -210,7 +274,6 @@ class _TourismSiteState extends State<TourismSite>{
                               })
                           ),
                         ),
-
                       ].map((e) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: e
@@ -234,6 +297,7 @@ class Rating extends StatelessWidget {
   final double rating;
   final RatingHandlerCallback onRatingChanged;
 
+  // ignore: use_key_in_widget_constructors
   const Rating({Key? key, this.count = 5, this.rating = 0, required this.onRatingChanged});
 
   Widget buildStar(BuildContext context, int index) {

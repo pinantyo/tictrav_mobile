@@ -35,11 +35,11 @@ class _ProfilePageState extends State<ProfilePage>{
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           color: Colors.white,
           child:Column(
-            children: [
-              const CircleAvatar(
+            children: const [
+              CircleAvatar(
                 radius: 80,
                 backgroundColor: Colors.grey,
               ),

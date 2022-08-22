@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               )
           ),
           IconButton(
-              onPressed:(){Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));},
+              onPressed:(){Navigator.push(context, MaterialPageRoute(builder: (context)=> const ProfilePage()));},
               tooltip: 'Account Settings',
               icon: const Icon(
                 Icons.account_circle_outlined,
